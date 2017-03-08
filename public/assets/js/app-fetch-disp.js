@@ -1,7 +1,7 @@
 // *****************************
 // APP
 // *****************************
-waterfall({}, [getLocation], displayData);
+waterfall({}, [getLocation, getWeather, getImage], displayData);
 
 
 function waterfall(appData, tasks, cb) {
@@ -42,13 +42,19 @@ function processLocation(appData, jsonObject) {
 // *****************************
 // WEATHER
 // *****************************
-function getWeather() {
-  return 2;
+function getWeather(appData, cb) {
+  var weatherUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`;
+  fetch('GET', weatherUrl, function(err, jsonObject){
+    cb(null, processWeather(appData, jsonObject));
+  })
 }
 
 
-function processWeather() {
-  return 2;
+function processWeather(appData, jsonObject) {
+  appData.description = jsonObject.weather[0].description;
+  appData.main = jsonObject.weather[0].main;
+  appData.temperature = jsonObject.main.temp;
+  return appData;
 }
 
 
@@ -57,12 +63,17 @@ function processWeather() {
 // *****************************
 // IMAGES
 // *****************************
-function getImages() {
-  return 3;
+function getImage(appData, cb) {
+  var encodedDescription = encodeURIComponent(appData.description);
+  var imageUrl = `http://api.giphy.com/v1/gifs/search?q=${encodedDescription}&api_key=dc6zaTOxFJmzC`;
+  fetch('GET', imageUrl, function(err, jsonObject) {
+    cb(null, processImages(appData, jsonObject));
+  })
 }
 
-function processImages() {
-  return 3;
+function processImages(appData, jsonObject) {
+  appData.image = jsonObject.data[0].images.downsized_medium.url;
+  return appData;
 }
 
 
@@ -92,6 +103,11 @@ function fetch(method, url, cb) {
 // *****************************
 function displayData(err, appData) {
   for (key in appData) {
-    document.querySelector(`.${key}`).textContent = appData[key];
+    if (key === 'image') {
+      document.querySelector(`.${key}`).src = appData[key];
+    }
+    else {
+      document.querySelector(`.${key}`).textContent = appData[key];
+    }
   }
 }
