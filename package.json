@@ -1,0 +1,27 @@
+{
+  "name": "week3-jzlp",
+  "version": "1.0.0",
+  "description": "Weather Images",
+  "main": "index.html",
+  "scripts": {
+    "start": "browser-sync start --server --files './*.html' 'public' 'test' --no-notify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAC10/week3-jzlp.git"
+  },
+  "keywords": [
+    "location",
+    "weather",
+    "image"
+  ],
+  "author": "JZLP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FAC10/week3-jzlp/issues"
+  },
+  "homepage": "https://github.com/FAC10/week3-jzlp#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8"
+  }
+}
