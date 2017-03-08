@@ -1,0 +1,1 @@
+waterfall({}, [getLocation, getWeather], displayData);
