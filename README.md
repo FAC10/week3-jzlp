@@ -15,6 +15,13 @@ Live version: https://fac10.github.io/week3-jzlp/
 ###Architecture
 
 - Draw diagram showing individual components
+
+  Initial app architecture
+    <img alt='Initial app architecture' src='demo/initial_arch.jpg' width=350px>
+
+  Final app architecture
+    <img alt='Final app architecture' src='demo/final_arch.jpg' width=350px>
+
 - Discuss how individual components will work together
 
 ###Considering your user journey
