@@ -1,3 +1,4 @@
+
 function request(url, cb) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
@@ -9,3 +10,6 @@ function request(url, cb) {
   xhr.open('GET', url, true);
   xhr.send();
 }
+
+waterfall({}, [getLocation, getWeather], displayData);
+
