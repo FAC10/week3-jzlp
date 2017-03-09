@@ -1,10 +1,10 @@
-QUnit.test('processLocation should return latitude and longitude as an object when given a fake jsonObject', function(assert) {
+QUnit.test('mergeLocation should return latitude and longitude as an object when given a fake jsonObject', function(assert) {
   var jsonObject = {color: 'red', wheels: 4, location: {latitude: 4, longitude: 5, city: 'London'}};
-  assert.deepEqual(processLocation({}, jsonObject), {latitude: 4, longitude: 5}, 'processLocation returns latitude and longitude!')
+  assert.deepEqual(mergeLocation({}, jsonObject), {latitude: 4, longitude: 5}, 'mergeLocation returns latitude and longitude!')
 });
 
 
-QUnit.test('processWeather should return an appData object with full description of weather when given a fake jsonObject', function(assert) {
+QUnit.test('mergeWeather should return an appData object with full description of weather when given a fake jsonObject', function(assert) {
   var jsonObject = {
     color: 'red',
     wheels: 4,
@@ -12,10 +12,10 @@ QUnit.test('processWeather should return an appData object with full description
     main: {temp: 32, mood: 'smiley'},
     city: 'London'
   };
-  assert.deepEqual(processWeather({}, jsonObject), {description: 'sunny spells', main: 'firstMain', temperature: 32}, 'Yay -- weather description returned!')
+  assert.deepEqual(mergeWeather({}, jsonObject), {description: 'sunny spells', main: 'firstMain', temperature: 32}, 'Yay -- weather description returned!')
 });
 
-QUnit.test('processImages should return an object with a url when given a fake jsonObject', function(assert) {
+QUnit.test('mergeImages should return an object with a url when given a fake jsonObject', function(assert) {
   var jsonObject = {
     color: 'red',
     wheels: 4,
@@ -29,5 +29,23 @@ QUnit.test('processImages should return an object with a url when given a fake j
        }
      }]
    };
-  assert.deepEqual(processImages({}, jsonObject), {image: 'https://media.giphy.com/media/xtGpIp4ixR6Gk/giphy.gif'}, 'image url is returned in a object!')
+  assert.deepEqual(mergeImages({}, jsonObject), {image: 'https://media.giphy.com/media/xtGpIp4ixR6Gk/giphy.gif'}, 'image url is returned in a object!')
+});
+
+QUnit.test('makeLocationUrl should return the nekudo url', function(assert) {
+  var appData = {};
+  assert.equal(makeLocationUrl(appData), 'https://geoip.nekudo.com/api/', 'makeLocationUrl returns the nekudo url!')
+});
+
+//Declare test openWeatherKey variable so that function has access to the fake variable
+var openWeatherKey = '123456';
+QUnit.test('makeWeatherUrl should return the open weather url with correct latitude, longitude and api key!', function(assert) {
+  var appData = { latitude: 50, longitude: 40};
+  assert.equal(makeWeatherUrl(appData), 'http://api.openweathermap.org/data/2.5/weather?lat=50&lon=40&appid=123456&units=metric', 'makeWeatherUrl returns the open weather url with correct lat, long and api key!')
+});
+
+QUnit.test('makeImageUrl should return the giphy url with correct description', function(assert) {
+  var appData = { description: 'funny cats'};
+  var encodedDescription = encodeURIComponent(appData.description);
+  assert.equal(makeImageUrl(appData), 'http://api.giphy.com/v1/gifs/search?q=funny%20cats&api_key=dc6zaTOxFJmzC', 'makeImageUrl returns the giphy url with correct description!');
 });
