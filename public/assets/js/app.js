@@ -65,7 +65,7 @@ function makeWeatherUrl(appData) {
 function mergeWeather(appData, jsonResponseObject) {
   appData.display = {};
   appData.display.city = jsonResponseObject.name;
-  appData.display.temperature = jsonResponseObject.main.temp;
+  appData.display.temperature = jsonResponseObject.main.temp + '°C';
   appData.display.summary = jsonResponseObject.weather[0].main;
   appData.description = jsonResponseObject.weather[0].description;
   return appData;
@@ -133,7 +133,7 @@ function displayData(err, appData) {
 
   for (var key in appData.display) {
     if (key === 'image') {
-      document.querySelector(`.${key}`).src = appData.display[key];
+      document.body.style.backgroundImage = 'url("' + appData.display[key] + '")';
     } else {
       document.querySelector(`.${key}`).textContent = appData.display[key];
     }
