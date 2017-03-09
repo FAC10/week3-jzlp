@@ -19,13 +19,13 @@ QUnit.test('mergeWeather should return an appData object with full description o
   var expected = {
     display: {
       city: 'London',
-      temperature: 32,
+      temperature: 32 + '°C',
       summary: 'firstMain'
     },
     description: 'sunny spells'
   };
 
-  assert.deepEqual(mergeWeather({}, jsonObject), expected, 'Yay -- weather description returned!');
+  assert.deepEqual(mergeWeather({display:{}}, jsonObject), expected, 'Yay -- weather description returned!');
 });
 
 

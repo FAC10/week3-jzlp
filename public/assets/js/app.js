@@ -1,7 +1,7 @@
 // ***************************************************************
 // APP
 // ***************************************************************
-waterfall({}, [getLocation, getWeather, getImage], displayData);
+waterfall({display: {}}, [getLocation, getWeather, getImage], displayData);
 
 
 
@@ -52,6 +52,9 @@ function mergeLocation(appData, jsonResponseObject) {
 // ***************************************************************
 function getWeather(appData, handleUpdatedDataCallback) {
   fetch('GET', makeWeatherUrl(appData), function(err, jsonResponseObject) {
+    if (err) {
+      return handleUpdatedDataCallback(err);
+    }
     handleUpdatedDataCallback(null, mergeWeather(appData, jsonResponseObject));
   });
 }
@@ -63,9 +66,8 @@ function makeWeatherUrl(appData) {
 
 
 function mergeWeather(appData, jsonResponseObject) {
-  appData.display = {};
   appData.display.city = jsonResponseObject.name;
-  appData.display.temperature = jsonResponseObject.main.temp + '°C';
+  appData.display.temperature = `${jsonResponseObject.main.temp}°C`;
   appData.display.summary = jsonResponseObject.weather[0].main;
   appData.description = jsonResponseObject.weather[0].description;
   return appData;
@@ -79,6 +81,9 @@ function mergeWeather(appData, jsonResponseObject) {
 // ***************************************************************
 function getImage(appData, handleUpdatedDataCallback) {
   fetch('GET', makeImageUrl(appData), function(err, jsonResponseObject) {
+    if (err) {
+      return handleUpdatedDataCallback(err);
+    }
     handleUpdatedDataCallback(null, mergeImage(appData, jsonResponseObject));
   });
 }
@@ -133,7 +138,7 @@ function displayData(err, appData) {
 
   for (var key in appData.display) {
     if (key === 'image') {
-      document.body.style.backgroundImage = 'url("' + appData.display[key] + '")';
+      document.body.style.backgroundImage = `url("${appData.display[key]}")`;
     } else {
       document.querySelector(`.${key}`).textContent = appData.display[key];
     }
