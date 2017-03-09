@@ -23,12 +23,14 @@ function waterfall(appData, tasks, cb) {
 // LOCATION
 // *****************************
 function getLocation(appData, cb) {
-  var locationUrl = 'https://geoip.nekudo.com/api/';
-  fetch('GET', locationUrl, function(err, jsonObject) {
+  fetch('GET', makeLocationUrl(appData), function(err, jsonObject) {
     cb(null, processLocation(appData, jsonObject));
   });
 }
 
+function makeLocationUrl(appData){
+  return 'https://geoip.nekudo.com/api/';
+}
 
 function processLocation(appData, jsonObject) {
   appData.latitude = jsonObject.location.latitude;
@@ -43,7 +45,6 @@ function processLocation(appData, jsonObject) {
 // WEATHER
 // *****************************
 function getWeather(appData, cb) {
-  // var weatherUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`;
   fetch('GET', makeWeatherUrl(appData), function(err, jsonObject){
     cb(null, processWeather(appData, jsonObject));
   })
@@ -68,11 +69,14 @@ function processWeather(appData, jsonObject) {
 // IMAGES
 // *****************************
 function getImage(appData, cb) {
-  var encodedDescription = encodeURIComponent(appData.description);
-  var imageUrl = `http://api.giphy.com/v1/gifs/search?q=${encodedDescription}&api_key=dc6zaTOxFJmzC`;
-  fetch('GET', imageUrl, function(err, jsonObject) {
+  fetch('GET', makeImageUrl(appData), function(err, jsonObject) {
     cb(null, processImages(appData, jsonObject));
   })
+}
+
+function makeImageUrl(appData){
+  var encodedDescription = encodeURIComponent(appData.description);
+  return `http://api.giphy.com/v1/gifs/search?q=${encodedDescription}&api_key=dc6zaTOxFJmzC`;
 }
 
 function processImages(appData, jsonObject) {
