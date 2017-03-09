@@ -43,10 +43,14 @@ function processLocation(appData, jsonObject) {
 // WEATHER
 // *****************************
 function getWeather(appData, cb) {
-  var weatherUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`;
-  fetch('GET', weatherUrl, function(err, jsonObject){
+  // var weatherUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`;
+  fetch('GET', makeWeatherUrl(appData), function(err, jsonObject){
     cb(null, processWeather(appData, jsonObject));
   })
+}
+
+function makeWeatherUrl(appData){
+  return `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`;
 }
 
 
