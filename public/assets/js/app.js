@@ -126,7 +126,6 @@ function fetch(method, url, handleResponseCallback) {
 // DISPLAY
 // ***************************************************************
 function displayData(err, appData) {
-  console.log(1, err, Error);
   if (err) {
     document.querySelector(`.summary`).textContent = 'Sorry, data unavailable';
     return Error;
