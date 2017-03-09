@@ -15,7 +15,7 @@ QUnit.test('mergeWeather should return an appData object with full description o
   assert.deepEqual(mergeWeather({}, jsonObject), {description: 'sunny spells', main: 'firstMain', temperature: 32}, 'Yay -- weather description returned!')
 });
 
-QUnit.test('mergeImages should return an object with a url when given a fake jsonObject', function(assert) {
+QUnit.test('mergeImage should return an object with a url when given a fake jsonObject', function(assert) {
   var jsonObject = {
     color: 'red',
     wheels: 4,
@@ -29,7 +29,7 @@ QUnit.test('mergeImages should return an object with a url when given a fake jso
        }
      }]
    };
-  assert.deepEqual(mergeImages({}, jsonObject), {image: 'https://media.giphy.com/media/xtGpIp4ixR6Gk/giphy.gif'}, 'image url is returned in a object!')
+  assert.deepEqual(mergeImage({}, jsonObject), {image: 'https://media.giphy.com/media/xtGpIp4ixR6Gk/giphy.gif'}, 'image url is returned in a object!')
 });
 
 QUnit.test('makeLocationUrl should return the nekudo url', function(assert) {
@@ -48,4 +48,9 @@ QUnit.test('makeImageUrl should return the giphy url with correct description', 
   var appData = { description: 'funny cats'};
   var encodedDescription = encodeURIComponent(appData.description);
   assert.equal(makeImageUrl(appData), 'http://api.giphy.com/v1/gifs/search?q=funny%20cats&api_key=dc6zaTOxFJmzC', 'makeImageUrl returns the giphy url with correct description!');
+});
+
+
+QUnit.test( "displayData throws an error if appData not passed", function(assert) {
+  assert.equal(displayData('u'), Error);
 });
