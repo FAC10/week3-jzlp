@@ -138,7 +138,9 @@ function displayData(err, appData) {
 
   for (var key in appData.display) {
     if (key === 'image') {
-      document.body.style.backgroundImage = `url("${appData.display[key]}")`;
+      
+      document.getElementById("js-body").style.backgroundImage = 'url("' + appData.display[key] + '")';
+
     } else {
       document.querySelector(`.${key}`).textContent = appData.display[key];
     }
