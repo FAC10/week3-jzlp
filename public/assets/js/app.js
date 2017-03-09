@@ -68,7 +68,6 @@ function mergeWeather(appData, jsonResponseObject) {
   appData.display.temperature = jsonResponseObject.main.temp;
   appData.display.summary = jsonResponseObject.weather[0].main;
   appData.description = jsonResponseObject.weather[0].description;
-  console.log(appData);
   return appData;
 }
 
@@ -127,9 +126,10 @@ function fetch(method, url, handleResponseCallback) {
 // DISPLAY
 // ***************************************************************
 function displayData(err, appData) {
+  console.log(1, err, Error);
   if (err) {
-    document.querySelector(`.description`).textContent = 'Sorry, data unavailable';
-    return Error; 
+    document.querySelector(`.summary`).textContent = 'Sorry, data unavailable';
+    return Error;
   }
 
   for (var key in appData.display) {
