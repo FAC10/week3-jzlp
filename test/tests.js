@@ -83,3 +83,33 @@ QUnit.test('makeImageUrl should return the giphy url with correct description', 
 QUnit.test('displayData throws an error if appData not passed', function(assert) {
   assert.equal(displayData('u'), Error);
 });
+
+QUnit.test('displayData should modify the DOM respective to the values of the object passed to it', function(assert){
+  var myObj = {
+    display: {
+      city: 'london',
+      temperature: '420',
+      summary: 'raining',
+      image: 'myimage.jpeg'
+    }
+  };
+
+  displayData(null, myObj);
+
+  var bgImage = document.getElementById('js-body').style.backgroundImage;
+
+  var myCity = document.querySelector(`.city`).textContent;
+
+  var myTemp = document.querySelector(`.temperature`).textContent;
+
+  var mySum = document.querySelector(`.summary`).textContent;
+
+  assert.equal(bgImage, `url("${myObj.display.image}")`, '#js-body background image should have the same url as appData.display.image');
+
+  assert.equal(myCity, myObj.display.city, '.city textContent should be the same as the value of appData.display.city');
+
+  assert.equal(myTemp, myObj.display.temperature, '.temperature textContent should be the same as the value of appData.display.temperature');
+
+  assert.equal(mySum, myObj.display.summary, '.summary textContent should be the same as the value of appData.display.summary');
+
+});
