@@ -3,7 +3,7 @@ html{
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Baloo Bhaina', Helvetica, Arial, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,14 +16,19 @@ section{
   align-items: center;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.7);
-  padding: 1em;
+  padding: 2rem;
   border-radius: 2em;
   text-align: center;
+  box-shadow: 10px 10px 5px black;
 }
 
-p, h1{
-  font-size: 2rem;
+h1 {
+  font-size: 4rem;
   color: rgb(0, 0, 0);
+}
+
+p {
+  font-size: 3rem;
 }
 
 .latitude{
