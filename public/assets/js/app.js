@@ -4,6 +4,7 @@
 waterfall({}, [getLocation, getWeather, getImage], displayData);
 
 
+
 function waterfall(appData, tasks, finalCallback) {
   if (tasks.length === 0) {
     return finalCallback(null, appData);
@@ -56,15 +57,23 @@ function getWeather(appData, handleUpdatedDataCallback) {
 }
 
 
-function makeWeatherUrl(appData){
+function makeWeatherUrl(appData) {
   return `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`; // eslint-disable-line no-undef
 }
 
 
 function mergeWeather(appData, jsonResponseObject) {
+  appData.display = {};
+  appData.display.city = jsonResponseObject.name;
+  appData.display.temperature = jsonResponseObject.main.temp;
+  appData.display.summary = jsonResponseObject.weather[0].main;
   appData.description = jsonResponseObject.weather[0].description;
+<<<<<<< HEAD
   appData.main = jsonResponseObject.weather[0].main;
   appData.temperature = jsonResponseObject.main.temp + '°C';
+=======
+  console.log(appData);
+>>>>>>> master
   return appData;
 }
 
@@ -88,7 +97,7 @@ function makeImageUrl(appData) {
 
 
 function mergeImage(appData, jsonResponseObject) {
-  appData.image = jsonResponseObject.data[0].images.downsized_medium.url;
+  appData.display.image = jsonResponseObject.data[0].images.downsized_medium.url;
   return appData;
 }
 
@@ -125,13 +134,18 @@ function fetch(method, url, handleResponseCallback) {
 function displayData(err, appData) {
   if (err) {
     document.querySelector(`.description`).textContent = 'Sorry, data unavailable';
-    return console.log('error:', err);
+    return Error; 
   }
-  for (var key in appData) {
+
+  for (var key in appData.display) {
     if (key === 'image') {
+<<<<<<< HEAD
       document.body.style.backgroundImage = 'url("' + appData[key] + '")';
+=======
+      document.querySelector(`.${key}`).src = appData.display[key];
+>>>>>>> master
     } else {
-      document.querySelector(`.${key}`).textContent = appData[key];
+      document.querySelector(`.${key}`).textContent = appData.display[key];
     }
   }
 }
