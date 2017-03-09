@@ -1,103 +1,117 @@
-// *****************************
+// ***************************************************************
 // APP
-// *****************************
+// ***************************************************************
 waterfall({}, [getLocation, getWeather, getImage], displayData);
 
 
-function waterfall(appData, tasks, cb) {
+function waterfall(appData, tasks, finalCallback) {
   if (tasks.length === 0) {
-    return cb(null, appData);
+    return finalCallback(null, appData);
   }
   tasks[0](appData, function(err, res) {
     if (err) {
-      return cb(err);
+      return finalCallback(err);
     }
-    waterfall(res, tasks.slice(1), cb);
+    waterfall(res, tasks.slice(1), finalCallback);
   });
 }
 
 
 
 
-// *****************************
+// ***************************************************************
 // LOCATION
-// *****************************
-function getLocation(appData, cb) {
-  fetch('GET', makeLocationUrl(appData), function(err, jsonObject) {
-    cb(null, mergeLocation(appData, jsonObject));
+// ***************************************************************
+function getLocation(appData, handleUpdatedDataCallback) {
+  fetch('GET', makeLocationUrl(appData), function(err, jsonResponseObject) {
+    if (err) {
+      return handleUpdatedDataCallback(err);
+    }
+    handleUpdatedDataCallback(null, mergeLocation(appData, jsonResponseObject));
   });
 }
+
 
 function makeLocationUrl(appData){
   return 'https://geoip.nekudo.com/api/';
 }
 
-function mergeLocation(appData, jsonObject) {
-  appData.latitude = jsonObject.location.latitude;
-  appData.longitude = jsonObject.location.longitude;
+
+function mergeLocation(appData, jsonResponseObject) {
+  appData.latitude = jsonResponseObject.location.latitude;
+  appData.longitude = jsonResponseObject.location.longitude;
   return appData;
 }
 
 
 
 
-// *****************************
+// ***************************************************************
 // WEATHER
-// *****************************
-function getWeather(appData, cb) {
-  fetch('GET', makeWeatherUrl(appData), function(err, jsonObject){
-    cb(null, mergeWeather(appData, jsonObject));
+// ***************************************************************
+function getWeather(appData, handleUpdatedDataCallback) {
+  fetch('GET', makeWeatherUrl(appData), function(err, jsonResponseObject) {
+    handleUpdatedDataCallback(null, mergeWeather(appData, jsonResponseObject));
   });
 }
+
 
 function makeWeatherUrl(appData){
   return `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`; // eslint-disable-line no-undef
 }
 
 
-function mergeWeather(appData, jsonObject) {
-  appData.description = jsonObject.weather[0].description;
-  appData.main = jsonObject.weather[0].main;
-  appData.temperature = jsonObject.main.temp;
+function mergeWeather(appData, jsonResponseObject) {
+  appData.description = jsonResponseObject.weather[0].description;
+  appData.main = jsonResponseObject.weather[0].main;
+  appData.temperature = jsonResponseObject.main.temp;
   return appData;
 }
 
 
 
 
-// *****************************
+// ***************************************************************
 // IMAGES
-// *****************************
-function getImage(appData, cb) {
-  fetch('GET', makeImageUrl(appData), function(err, jsonObject) {
-    cb(null, mergeImages(appData, jsonObject));
+// ***************************************************************
+function getImage(appData, handleUpdatedDataCallback) {
+  fetch('GET', makeImageUrl(appData), function(err, jsonResponseObject) {
+    handleUpdatedDataCallback(null, mergeImage(appData, jsonResponseObject));
   });
 }
 
-function makeImageUrl(appData){
+
+function makeImageUrl(appData) {
   var encodedDescription = encodeURIComponent(appData.description);
   return `http://api.giphy.com/v1/gifs/search?q=${encodedDescription}&api_key=dc6zaTOxFJmzC`;
 }
 
-function mergeImages(appData, jsonObject) {
-  appData.image = jsonObject.data[0].images.downsized_medium.url;
+
+function mergeImage(appData, jsonResponseObject) {
+  appData.image = jsonResponseObject.data[0].images.downsized_medium.url;
   return appData;
 }
 
 
 
 
-// *****************************
+// ***************************************************************
 // FETCH
-// *****************************
-function fetch(method, url, cb) {
+// ***************************************************************
+function fetch(method, url, handleResponseCallback) {
   var xhr = new XMLHttpRequest();
+
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       var jsonObj = JSON.parse(xhr.responseText);
-      cb(null, jsonObj);
+      handleResponseCallback(null, jsonObj);
     }
   };
+
+  xhr.onerror = function() {
+    handleResponseCallback('Api response error');
+  };
+
   xhr.open(method, url, true);
   xhr.send();
 }
@@ -105,15 +119,18 @@ function fetch(method, url, cb) {
 
 
 
-// *****************************
+// ***************************************************************
 // DISPLAY
-// *****************************
+// ***************************************************************
 function displayData(err, appData) {
+  if (err) {
+    document.querySelector(`.description`).textContent = 'Sorry, data unavailable';
+    return console.log('error:', err);
+  }
   for (var key in appData) {
     if (key === 'image') {
       document.querySelector(`.${key}`).src = appData[key];
-    }
-    else {
+    } else {
       document.querySelector(`.${key}`).textContent = appData[key];
     }
   }
