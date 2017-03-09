@@ -22,13 +22,14 @@ section{
   box-shadow: 10px 10px 5px black;
 }
 
-h1 {
+.title {
   font-size: 4rem;
-  color: rgb(0, 0, 0);
+  color: black;
+  text-align: center;
 }
 
-p {
-  font-size: 3rem;
+.city, .summary, .temperature {
+  font-size: 2rem;
 }
 
 .latitude{
@@ -43,19 +44,6 @@ p {
   display: none;
 }
 
-.main{
-  /*width: 80%;*/
-
-}
-
-.temperature{
-  /*width: 80%;*/
-}
-
 .image{
   max-width: 8rem;
-}
-
-.title{
-  text-align: center;
 }
