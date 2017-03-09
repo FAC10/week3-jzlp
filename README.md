@@ -93,3 +93,10 @@ function(error, result) {
 
 - Based on the technical spike, we were able to start writing a waterfall function which was in keeping with our architectural design.
 - In conjunction with this, we are starting to write tests.
+
+## tests
+
+- We created unit tests in QUnit for functions that process API data
+- We realised that some functions weren't testable; this lead us to refactor them
+- We broke down our code into smaller units to make it testable, with separate functions for constructing API URLs.
+ 
