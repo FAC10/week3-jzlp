@@ -32,6 +32,7 @@ Live version: https://fac10.github.io/week3-jzlp/
 
 ### Stretch goal
 - Have a search bar to check the weather somewhere else (i.e. search by city)
+- As geolocation api requires IP address, look at using Google's geolocation API so that we do not need to rely on IP based geolocation.
 
 ---
 
