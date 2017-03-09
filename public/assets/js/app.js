@@ -127,7 +127,7 @@ function fetch(method, url, handleResponseCallback) {
 // ***************************************************************
 function displayData(err, appData) {
   if (err) {
-    document.querySelector(`.description`).textContent = 'Sorry, data unavailable';
+    document.querySelector(`.summary`).textContent = 'Sorry, data unavailable';
     return Error;
   }
 
