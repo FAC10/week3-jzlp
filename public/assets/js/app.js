@@ -65,15 +65,9 @@ function makeWeatherUrl(appData) {
 function mergeWeather(appData, jsonResponseObject) {
   appData.display = {};
   appData.display.city = jsonResponseObject.name;
-  appData.display.temperature = jsonResponseObject.main.temp;
+  appData.display.temperature = jsonResponseObject.main.temp + '°C';
   appData.display.summary = jsonResponseObject.weather[0].main;
   appData.description = jsonResponseObject.weather[0].description;
-<<<<<<< HEAD
-  appData.main = jsonResponseObject.weather[0].main;
-  appData.temperature = jsonResponseObject.main.temp + '°C';
-=======
-  console.log(appData);
->>>>>>> master
   return appData;
 }
 
@@ -134,16 +128,12 @@ function fetch(method, url, handleResponseCallback) {
 function displayData(err, appData) {
   if (err) {
     document.querySelector(`.description`).textContent = 'Sorry, data unavailable';
-    return Error; 
+    return Error;
   }
 
   for (var key in appData.display) {
     if (key === 'image') {
-<<<<<<< HEAD
-      document.body.style.backgroundImage = 'url("' + appData[key] + '")';
-=======
-      document.querySelector(`.${key}`).src = appData.display[key];
->>>>>>> master
+      document.body.style.backgroundImage = 'url("' + appData.display[key] + '")';
     } else {
       document.querySelector(`.${key}`).textContent = appData.display[key];
     }
