@@ -3,7 +3,6 @@
 // ***************************************************************
 waterfall({}, [getLocation, getWeather, getImage], displayData);
 
-
 function waterfall(appData, tasks, finalCallback) {
   if (tasks.length === 0) {
     return finalCallback(null, appData);
@@ -127,7 +126,7 @@ function displayData(err, appData) {
     document.querySelector(`.description`).textContent = 'Sorry, data unavailable';
     return console.log('error:', err);
   }
-  for (var key in appData) {
+  for (var key in appData.display) {
     if (key === 'image') {
       document.querySelector(`.${key}`).src = appData[key];
     } else {
