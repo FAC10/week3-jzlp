@@ -8,7 +8,6 @@ body {
   align-items: center;
   justify-content: center;
   height: 100%;
-  /*background-image: url("http://media3.giphy.com/media/uQ9fkLUhlBnS8/giphy.gif");*/
 }
 
 section{
@@ -19,6 +18,7 @@ section{
   background-color: rgba(255, 255, 255, 0.7);
   padding: 1em;
   border-radius: 2em;
+  text-align: center;
 }
 
 p, h1{
