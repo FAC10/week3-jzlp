@@ -35,7 +35,7 @@ QUnit.test('mergeImage should return an object with a url when given a fake json
     color: 'red',
     wheels: 4,
     data: [{
-      images:
+      image:
       {
         downsized_medium:
         {
@@ -74,9 +74,15 @@ QUnit.test('makeWeatherUrl should return the open weather url with correct latit
 
 
 QUnit.test('makeImageUrl should return the giphy url with correct description', function(assert) {
-  var appData = { description: 'funny cats'};
-  var encodedDescription = encodeURIComponent(appData.description);
-  assert.equal(makeImageUrl(appData), 'http://api.giphy.com/v1/gifs/search?q=funny%20cats&api_key=dc6zaTOxFJmzC', 'makeImageUrl returns the giphy url with correct description!');
+  var appData = {
+    display: {
+      image: null
+    }
+  };
+
+  appData.display.summary = encodeURIComponent('sunny');
+
+  assert.equal(makeImageUrl(appData), 'http://api.giphy.com/v1/gifs/search?q=sunny&api_key=dc6zaTOxFJmzC', 'makeImageUrl returns the giphy url with correct description!');
 });
 
 

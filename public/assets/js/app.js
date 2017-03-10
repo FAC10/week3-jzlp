@@ -4,7 +4,6 @@
 waterfall({display: {}}, [getLocation, getWeather, getImage], displayData);
 
 
-
 function waterfall(appData, tasks, finalCallback) {
   if (tasks.length === 0) {
     return finalCallback(null, appData);
@@ -90,13 +89,13 @@ function getImage(appData, handleUpdatedDataCallback) {
 
 
 function makeImageUrl(appData) {
-  var encodedDescription = encodeURIComponent(appData.description);
+  var encodedDescription = encodeURIComponent(appData.display.summary);
   return `http://api.giphy.com/v1/gifs/search?q=${encodedDescription}&api_key=dc6zaTOxFJmzC`;
 }
 
 
 function mergeImage(appData, jsonResponseObject) {
-  appData.display.image = jsonResponseObject.data[0].images.downsized_medium.url;
+  appData.display.image = jsonResponseObject.data[getRandomNumber(0, 5)].images.downsized_medium.url;
   return appData;
 }
 
@@ -138,11 +137,20 @@ function displayData(err, appData) {
 
   for (var key in appData.display) {
     if (key === 'image') {
-
-      document.getElementById("js-body").style.backgroundImage = `url("${appData.display[key]}")`;
+      document.getElementById('js-body').style.backgroundImage = `url("${appData.display[key]}")`;
 
     } else {
       document.querySelector(`.${key}`).textContent = appData.display[key];
     }
   }
+}
+
+
+
+
+// ***************************************************************
+// HELPERS
+// ***************************************************************
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max + 1 - min) + min);
 }
