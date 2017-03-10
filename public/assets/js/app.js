@@ -60,13 +60,13 @@ function getWeather(appData, handleUpdatedDataCallback) {
 
 
 function makeWeatherUrl(appData) {
-  return `http://api.openweathermap.org/data/2.5/weather?lat=${appData.latitude}&lon=${appData.longitude}&appid=${openWeatherKey}&units=metric`; // eslint-disable-line no-undef
+  return 'http://api.openweathermap.org/data/2.5/weather?lat=' + appData.latitude + '&lon=' + appData.longitude + '&appid=' + openWeatherKey + '&units=metric'; // eslint-disable-line no-undef
 }
 
 
 function mergeWeather(appData, jsonResponseObject) {
   appData.display.city = jsonResponseObject.name;
-  appData.display.temperature = `${jsonResponseObject.main.temp}°C`;
+  appData.display.temperature = jsonResponseObject.main.temp + '°C';
   appData.display.summary = jsonResponseObject.weather[0].main;
   appData.description = jsonResponseObject.weather[0].description;
   return appData;
@@ -90,7 +90,7 @@ function getImage(appData, handleUpdatedDataCallback) {
 
 function makeImageUrl(appData) {
   var encodedDescription = encodeURIComponent(appData.display.summary);
-  return `http://api.giphy.com/v1/gifs/search?q=${encodedDescription}&api_key=dc6zaTOxFJmzC`;
+  return 'http://api.giphy.com/v1/gifs/search?q=' + encodedDescription + '&api_key=dc6zaTOxFJmzC';
 }
 
 
@@ -131,16 +131,16 @@ function fetch(method, url, handleResponseCallback) {
 // ***************************************************************
 function displayData(err, appData) {
   if (err) {
-    document.querySelector(`.summary`).textContent = 'Sorry, data unavailable';
+    document.querySelector('.summary').textContent = 'Sorry, data unavailable';
     return Error;
   }
 
   for (var key in appData.display) {
     if (key === 'image') {
-      document.getElementById('js-body').style.backgroundImage = `url("${appData.display[key]}")`;
+      document.getElementById('js-body').style.backgroundImage = 'url("' + appData.display[key] + '")';
 
     } else {
-      document.querySelector(`.${key}`).textContent = appData.display[key];
+      document.querySelector('.' + key).textContent = appData.display[key];
     }
   }
 }
