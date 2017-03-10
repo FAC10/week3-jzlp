@@ -3,8 +3,6 @@
 // ***************************************************************
 waterfall({display: {}}, [getLocation, getWeather, getImage], displayData);
 
-
-
 function waterfall(appData, tasks, finalCallback) {
   if (tasks.length === 0) {
     return finalCallback(null, appData);
