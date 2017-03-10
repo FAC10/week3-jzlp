@@ -17,12 +17,14 @@ Live version: https://fac10.github.io/week3-jzlp/
 - Draw diagram showing individual components
 
   Initial app architecture<br>
-    <img alt='Initial app architecture' src='demo/initial_arch.jpg' width=350px>
+    ![Initial app architecture](demo/initial_arch.jpg)
 
   Final app architecture<br>
-    <img alt='Final app architecture' src='demo/final_arch.jpg' width=350px>
+    ![Final app architecture](demo/final_arch.jpg)
 
 - Discuss how individual components will work together
+
+    ![Waterfall graph](demo/waterfall-graph.png)
 
 ### Considering your user journey
 
@@ -99,4 +101,3 @@ function(error, result) {
 - We created unit tests in QUnit for functions that process API data
 - We realised that some functions weren't testable; this lead us to refactor them
 - We broke down our code into smaller units to make it testable, with separate functions for constructing API URLs.
- 
