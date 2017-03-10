@@ -10,7 +10,7 @@ body {
   height: 100%;
 }
 
-section{
+.text-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,8 +22,14 @@ section{
   box-shadow: 10px 10px 5px black;
 }
 
+@media (max-width: 520px) {
+  .text-box {
+    max-width: 50%;
+  }
+}
+
 .title {
-  font-size: 4rem;
+  font-size: 3rem;
   color: black;
   text-align: center;
 }
