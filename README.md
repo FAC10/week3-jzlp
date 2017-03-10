@@ -1,7 +1,5 @@
 # API week project
 
-Live version: https://fac10.github.io/week3-jzlp/
-
 ## Introduction
 
 - Simply put, this app returns a GIF that represents the weather in your area.
