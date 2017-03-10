@@ -22,11 +22,6 @@ body {
   box-shadow: 10px 10px 5px black;
 }
 
-@media (max-width: 520px) {
-  .text-box {
-    max-width: 50%;
-  }
-}
 
 .title {
   font-size: 3rem;
@@ -36,6 +31,18 @@ body {
 
 .city, .summary, .temperature {
   font-size: 2rem;
+}
+
+@media (max-width: 520px) {
+  .text-box {
+    max-width: 50%;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .city, .summary, .temperature {
+    font-size: 1.5rem;
+  }
 }
 
 .latitude{
