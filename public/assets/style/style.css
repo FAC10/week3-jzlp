@@ -33,9 +33,21 @@ body {
   font-size: 2rem;
 }
 
-/*.summary {
-  text-shadow: 2px 3px white;
-}*/
+
+.summary {
+  animation: pulse 3s infinite;
+}
+
+
+@keyframes pulse {
+  0% {
+    font-size: 4rem;
+  }
+  100% {
+    font-size: 2rem;
+  }
+}
+
 
 @media (max-width: 520px) {
   .text-box {
