@@ -6,11 +6,32 @@ Live version: https://fac10.github.io/week3-jzlp/
 
 - Simply put, this app returns a GIF that represents the weather in your area.
 
-### APIs Needed
+### APIs
 
-- Giphy
-- OpenWeather
-- Nekudo (geolocation)
+- [Nekudo](http://geoip.nekudo.com/) (geolocation)
+
+  *This API gets location information for IP addresses.*
+
+  We get the user's __latitude__ and __longitude__ from this API.
+
+- [OpenWeather](https://openweathermap.org/api)
+
+  *This API gets current weather data for one location.*
+
+  We use __latitude__ and __longitude__ from the Nekudo API to call the OpenWeatherMap API, to get weather information for the user's location (based on IP address).
+
+  We get __city__, __temperature__, __weather description__ and __weather summary__ from this API.
+
+  We use __city__, __summary__ and __temperature__ to update the DOM, in order to show the user the this information.
+
+- [Giphy](https://api.giphy.com/)
+
+  *This API gets gifs.*
+
+  We use __weather description__ from the OpenWeatherMap API to call the Giphy API, in order to return gifs that relate to the description of the weather.
+
+  We get a __url__ for one of the first five gifs that are returned (this is randomly selected).
+
 
 ### Architecture
 
@@ -26,7 +47,7 @@ Live version: https://fac10.github.io/week3-jzlp/
 
     ![Waterfall graph](demo/waterfall-graph.png)
 
-### Considering your user journey
+### User journey
 
 - As a person who needs to know the weather, I want to go to a web page and see the weather in my area
 - As an impatient person, I don't want to have to input anything
@@ -96,8 +117,15 @@ function(error, result) {
 - Based on the technical spike, we were able to start writing a waterfall function which was in keeping with our architectural design.
 - In conjunction with this, we are starting to write tests.
 
-## tests
+
+## Day 2
+
+### Tests and refactoring code
 
 - We created unit tests in QUnit for functions that process API data
 - We realised that some functions weren't testable; this lead us to refactor them
 - We broke down our code into smaller units to make it testable, with separate functions for constructing API URLs.
+
+### User interface
+
+- We focused on the functionality of the app on Day 1, so on Day 2 we added styling in order to improve the user interface.
