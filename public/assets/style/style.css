@@ -20,8 +20,8 @@ body {
   border-radius: 2rem;
   text-align: center;
   box-shadow: 10px 10px 5px black;
+  text-shadow: 2px 3px white;
 }
-
 
 .title {
   font-size: 3rem;
@@ -32,6 +32,10 @@ body {
 .city, .summary, .temperature {
   font-size: 2rem;
 }
+
+/*.summary {
+  text-shadow: 2px 3px white;
+}*/
 
 @media (max-width: 520px) {
   .text-box {
