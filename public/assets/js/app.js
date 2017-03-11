@@ -72,7 +72,7 @@ function mergeWeather(appData, jsonResponseObject) {
 
 
 function makeWeatherUrl(appData) {
-  return `http://api.openweathermap.org/data/2.5/weather?lat=${appData.info.latitude}&lon=${appData.info.longitude}&appid=${openWeatherKey}&units=metric`; // eslint-disable-line no-undef
+  return `http://api.openweathermap.org/data/2.5/weather?lat=${appData.info.latitude}&lon=${appData.info.longitude}&appid=93b0b9be965a11f0f099c8c7f74afa63&units=metric`;
 }
 
 
@@ -82,7 +82,7 @@ function makeWeatherUrl(appData) {
 // IMAGE
 // ***************************************************************
 function mergeImage(appData, jsonResponseObject) {
-  appData.toBeDisplayed.images = jsonResponseObject.data.map(function(item) {
+  appData.toBeDisplayed.images = jsonResponseObject.data.map(item => {
     return item.images.downsized_medium.url;
   });
 
@@ -169,15 +169,4 @@ function animateImage(images, delay) {
     console.log(imageCounter);
     imagesDOM.src = images[imageCounter];
   }, delay);
-}
-
-
-
-
-
-// ***************************************************************
-// HELPERS
-// ***************************************************************
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max + 1 - min) + min);
 }
